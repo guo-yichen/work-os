@@ -33,28 +33,51 @@ You talk. The agents write, organize, and surface what matters.
 
 ## Setup (15 minutes)
 
-1. **Clone this repo** to your local machine.
+### Step 1 — Fill in your content
 
-2. **Edit `collect_status.sh`** — set these three variables:
+1. **Fill in `vision.md`** — your 3-month north star, strategic pillars,
+   and the decision heuristics you want the agent to apply.
+
+2. **Fill in `okrs.md`** — this quarter's objectives with measurable
+   key results.
+
+3. **Add your team to `people/team-map.md`** — the Relationship Warmth
+   section (Tier 1/2) is what the morning agent reads.
+
+4. **Edit `collect_status.sh`** — set these three variables (used for
+   local/manual runs only):
    ```bash
    REPO="/path/to/your/main/git/repo"
    AUTHOR="your-git-username"
    GIT_NAME="Your Name"
    ```
 
-3. **Fill in `vision.md`** — your 3-month north star, strategic pillars,
-   and the decision heuristics you want the agent to apply.
+### Step 2 — Choose your automation mode
 
-4. **Fill in `okrs.md`** — this quarter's objectives with measurable
-   key results.
+**Option A: Claude Code Desktop Scheduled Tasks (recommended)**
 
-5. **Add your team to `people/team-map.md`** — the Relationship Warmth
-   section (Tier 1/2) is what the morning agent reads.
+No local setup needed. Workflows run as remote cloud agents on a schedule.
 
-6. **Point Claude Code at this repo** — open the repo in Claude Code.
-   The `CLAUDE.md` file is automatically loaded as agent instructions.
+1. Push this repo to GitHub.
+2. Open [claude.ai/code/scheduled](https://claude.ai/code/scheduled) and
+   create 4 triggers pointing at your repo:
 
-7. **Say "morning update"** and let the agent do the rest.
+   | Name | Prompt | Cron (UTC) | Local time (PT) |
+   |------|--------|------------|-----------------|
+   | morning update | `morning update` | `30 15 * * *` | 8:30 AM daily |
+   | evening update | `evening update` | `0 4 * * *` | 9:00 PM daily |
+   | weekly review | `weekly review` | `0 0 * * 6` | Fri 5:00 PM |
+   | preference observation | `preference observation` | `0 4 * * 1` | Sun 9:00 PM (bi-weekly, self-throttles) |
+
+3. Done — no cron, no launchd, no local scripts.
+
+**Option B: Manual triggers**
+
+Open the repo in Claude Code and say the trigger phrase anytime:
+- `"morning update"` — generates today's briefing
+- `"evening update"` — processes inbox, updates brag doc, sets tomorrow's Top 3
+- `"weekly review"` — synthesizes the week (run on Fridays)
+- `"preference observation"` — analyzes patterns, updates Learned Preferences
 
 ## File Structure
 

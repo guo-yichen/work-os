@@ -241,6 +241,33 @@ identifies a skill gap blocking current OKR progress.
 3. At sprint end (during weekly review): fill the Outcome field, move block
    to Completed Sprints, and prompt user to start the next queued skill.
 
+### Preference Observation (Auto, Bi-weekly)
+
+**Trigger:** Runs automatically every other Sunday via `auto/observe.sh`.
+No user input needed.
+
+**Steps:**
+1. Read all `journal/` entries from the past 14 days.
+2. Read `decisions.md` entries from the past 14 days.
+3. Read `actions.md` — note which items were completed vs. repeatedly
+   carried over without progress.
+4. Read `ideas.md` — note which types of ideas appear most frequently.
+5. Read `inbox.md` — note what gets captured (tags, topics, time of day).
+6. Synthesize: identify behavioral patterns or preferences not yet captured
+   in the `## Learned Preferences` section of this file.
+7. Append new findings to `## Learned Preferences` (date-stamped, one line
+   each). Do NOT overwrite or remove existing entries.
+8. Append a log entry to `auto/logs/observe-YYYY-MM-DD.log`:
+   `[YYYY-MM-DD] observation | N new preferences added | summary`
+
+**What to look for:**
+- Task types that get done immediately vs. repeatedly deferred
+- Decision patterns (what reasoning appears most often?)
+- Which OKRs get the most attention vs. least
+- Recurring blockers or friction points
+- Topics that generate the most ideas
+- Anything surprising that should change how the agent prioritizes
+
 ### Weekly Review (Friday)
 
 **Trigger:** User says "weekly review"
@@ -407,3 +434,10 @@ Where your work overlaps. Concrete: "talk to [Name] about X."
   One reminder is helpful; repeated reminders are noise.
 - **Skill sprints:** one active sprint at a time. Do not start a new one
   before finishing or explicitly abandoning the current one.
+
+---
+
+## Learned Preferences
+
+<!-- Auto-maintained by bi-weekly Preference Observation runs (auto/observe.sh). -->
+<!-- Do not edit manually. Format: YYYY-MM-DD — [observed preference or pattern] -->

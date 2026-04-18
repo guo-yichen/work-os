@@ -19,6 +19,7 @@ You talk. The agents write, organize, and surface what matters.
 | `"capture: [thought]"` | Appends a tagged note to inbox for later processing. Zero friction. |
 | `"meeting note: ..."` or paste transcript | Agent structures the meeting, extracts actions, decisions, ideas, and hypotheses, and files them to the right places. |
 | `"evening update"` | Agent fills your work log, processes the inbox, updates the brag doc, writes a reflection, and sets tomorrow's Top 3. |
+| `"daily repo summary"` | Agent clusters the last 24h of commits across *all* authors and branches into logical updates, ranks them, updates affected project pages, and ends with a "For You" section of concrete collaboration suggestions. |
 | `"weekly review"` (Fridays) | Agent synthesizes the week: OKR progress, visibility log, relationship check, hypothesis review, decision review, skill sprint status. |
 
 ## What Gets Tracked Automatically
@@ -30,6 +31,7 @@ You talk. The agents write, organize, and surface what matters.
 - **Relationship warmth** — morning agent flags when a key collaborator is overdue for a sync
 - **Skill sprints** — structured 2-week learning blocks, one at a time
 - **Visibility** — weekly log of what you shipped, shared, or presented
+- **Repo intelligence** — daily clustered view of what the *whole team* shipped, with personalized collaboration suggestions grounded in your vision and OKRs
 
 ## Setup (15 minutes)
 
@@ -44,12 +46,18 @@ You talk. The agents write, organize, and surface what matters.
 3. **Add your team to `people/team-map.md`** — the Relationship Warmth
    section (Tier 1/2) is what the morning agent reads.
 
-4. **Edit `collect_status.sh`** — set these three variables (used for
-   local/manual runs only):
+4. **Edit `collect_status.sh`** — set these three variables (used by the
+   morning/evening updates; captures your commits only):
    ```bash
    REPO="/path/to/your/main/git/repo"
    AUTHOR="your-git-username"
    GIT_NAME="Your Name"
+   ```
+
+5. **Edit `collect_repo_snapshot.sh`** — set `REPO` (used by the daily
+   repo summary; captures activity from *all* authors, not just you):
+   ```bash
+   REPO="/path/to/your/main/git/repo"
    ```
 
 ### Step 2 — Choose your automation mode
@@ -65,6 +73,7 @@ No local setup needed. Workflows run as remote cloud agents on a schedule.
    | Name | Prompt | Cron (UTC) | Local time (PT) |
    |------|--------|------------|-----------------|
    | morning update | `morning update` | `30 15 * * *` | 8:30 AM daily |
+   | daily repo summary | `daily repo summary` | `0 16 * * *` | 9:00 AM daily |
    | evening update | `evening update` | `0 4 * * *` | 9:00 PM daily |
    | weekly review | `weekly review` | `0 0 * * 6` | Fri 5:00 PM |
    | preference observation | `preference observation` | `0 4 * * 1` | Sun 9:00 PM (bi-weekly, self-throttles) |
@@ -75,6 +84,7 @@ No local setup needed. Workflows run as remote cloud agents on a schedule.
 
 Open the repo in Claude Code and say the trigger phrase anytime:
 - `"morning update"` — generates today's briefing
+- `"daily repo summary"` — full-repo activity report + For You suggestions
 - `"evening update"` — processes inbox, updates brag doc, sets tomorrow's Top 3
 - `"weekly review"` — synthesizes the week (run on Fridays)
 - `"preference observation"` — analyzes patterns, updates Learned Preferences
@@ -100,6 +110,7 @@ people/            Team map + individual collaborator pages
 collaboration/     Opportunities + impact plan
 weekly/            Weekly reviews
 projects/          One page per project area
+repo-summaries/    Daily full-repo intelligence reports (all authors, clustered)
 ```
 
 ## Philosophy

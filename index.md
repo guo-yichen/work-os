@@ -43,6 +43,13 @@ See `README.md` for setup instructions and `CLAUDE.md` for agent workflows.
 
 Archived in [weekly/](weekly/) as `YYYY-WNN.md`.
 
+## Repo Summaries
+
+Daily full-repo intelligence reports in [repo-summaries/](repo-summaries/)
+as `YYYY-MM-DD.md`. Clusters the day's commits across all authors and
+branches into logical updates, then ends with a personalized "For You"
+section. See [repo-summaries/README.md](repo-summaries/README.md).
+
 ---
 
 ## How This Works
@@ -50,6 +57,9 @@ Archived in [weekly/](weekly/) as `YYYY-WNN.md`.
 - **Morning:** Say "morning update." Agent reads your commits, team activity,
   and open actions. Produces today's briefing with Top 3 tasks and any
   overdue relationship check-ins.
+- **Daily 9am:** `daily repo summary` runs (or trigger manually). Clusters
+  the last 24h of commits across *all* authors into logical updates,
+  updates affected project pages, and ends with a personalized For You.
 - **During day:** "capture: ..." appends a tagged note to inbox. After
   meetings, paste transcript and agent creates a structured meeting file
   and extracts actions, decisions, ideas, and hypotheses.
@@ -57,4 +67,5 @@ Archived in [weekly/](weekly/) as `YYYY-WNN.md`.
   updates brag doc, writes reflection, sets tomorrow's Top 3.
 - **Friday:** Say "weekly review." Agent synthesizes the week: OKR progress,
   visibility log, relationship check, hypothesis and decision review,
-  skill sprint status.
+  skill sprint status. The Friday `daily repo summary` also appends a
+  Weekly Repo Review with org-wide themes.
